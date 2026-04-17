@@ -21,8 +21,8 @@ if you try to use it for other binaries.
 
 ## Script Location
 
-The script should be located in your root folder of your ansible project. It will not work properly within a role or plugin! From there
-it can read your `requirements.txt` and your `requirements.yml`. The provided examples are just for showcasing and testing.
+The script should be located in your root folder of your ansible project. It will not work properly within a role or plugin! The provided
+examples are just for showcasing and testing.
 
 ## Usage
 
