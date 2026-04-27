@@ -3,7 +3,7 @@
 # Script to setup my virtual environment for Ansible development on my MacBook.
 # 2026-04-17 -- walther_denis@gmx.de
 
-set -o pipefail
+set -eou pipefail
 
 # Define the Python version to use for the virtual environment. Adjust this if you have a different version installed.
 PYTHON_VERSION_NUMBER=$(python3 --version | cut -d ' ' -f2)
@@ -14,12 +14,13 @@ function print_usage() {
     echo "Usage: $0 [OPTIONS]"
     echo ''
     echo 'Options:'
-    echo '  -c, --create         Create the virtual environment and install the dependencies'
-    echo '  -d, --destroy        Destroy the virtual environment'
-    echo '  -r, --recreate       Destroy and recreate the virtual environment'
-    echo '  -u, --update         Update the virtual environment and the dependencies'
-    echo '  -ur, --update-roles  Update the Ansible roles defined in requirements.yml'
-    echo '  -h, --help           Show this help message and exit'
+    echo '  -c   Create the virtual environment and install the dependencies'
+    echo '  -d   Destroy the virtual environment'
+    echo '  -i   Generate the inventory files'
+    echo '  -r   Destroy and recreate the virtual environment'
+    echo '  -u   Update the virtual environment and the dependencies'
+    echo '  -U   Update the Ansible roles defined in requirements.yml'
+    echo '  -h   Show this help message and exit'
     echo ''
     echo 'Example:'
     echo "  $0 --create"
@@ -81,28 +82,45 @@ function update_roles() {
     fi
 }
 
+# If no arguments were provided, show help and exit
+if [[ $# -eq 0 ]]; then
+    print_usage
+fi
+
 # Main entry point of the script, to parse the command line arguments and call the appropriate function.
-case "$1" in
-    -c|--create)
-        create_environment
-        ;;
-    -d|--destroy)
-        destroy_environment
-        ;;
-    -r|--recreate)
-        destroy_environment
-        create_environment
-        ;;
-    -u|--update)
-        update_environment
-        ;;
-    -ur|--update-roles)
-        update_roles
-        ;;
-    -h|--help)
-        print_usage
-        ;;
-    *)
-        print_usage
-        ;;
-esac
+while getopts "cdiruUh" opt; do
+    case ${opt} in
+        c)
+            create_environment
+            ;;
+        d)
+            destroy_environment
+            ;;
+        i)
+            create_environment
+            generate_inventory
+            ;;
+        r)
+            destroy_environment
+            create_environment
+            ;;
+        u)
+            update_environment
+            ;;
+        U)
+            update_roles
+            ;;
+        h)
+            print_usage
+            ;;
+        \?)
+            print_usage
+            ;;
+        *)
+            print_usage
+            ;;
+        esac
+done
+
+# Shift off the options so $1 refers to the first non-option argument
+shift $((OPTIND -1))

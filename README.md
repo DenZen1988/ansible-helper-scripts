@@ -8,6 +8,8 @@ on a regular/local installation of ansible.
 ## Table Of Content
 
 * [Available Scripts](#available-scripts)
+  * [ansible_rekey.sh](#ansible_rekeysh)
+  * [ansible_vault_password.sh](#ansible_vault_passwordsh)
   * [run.sh](#runsh)
   * [setup.sh](#setupsh)
 * [Requirements](#requirements)
@@ -17,6 +19,18 @@ on a regular/local installation of ansible.
 * [Contribution](#contribution)
 
 ## Available Scripts
+
+### ansible_rekey\.sh
+
+A script to rotate the ansible vault password with hashicorp vault as backend and rekey the vaulted files.
+
+* Check the specific [README](./ansible_rekey.sh/README.md) for the usage.
+
+### ansible_vault_password\.sh
+
+Instead of using a plaintext password in a text file this script can be used to fetch the password from a hashicorp vault instance instead.
+
+* Check the specific [README](./ansible_vault_password.sh/README.md) for the usage.
 
 ### run\.sh
 
