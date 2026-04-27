@@ -5,7 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-## [0.0.3] - 2026-04-20
+## [0.0.3] - 2026-04-27
+
+### Added
+
+* Added ansible_rekey\.sh
+* Added ansible_vault_password\.sh
 
 ### Changed
 
